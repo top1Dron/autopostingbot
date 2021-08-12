@@ -23,13 +23,13 @@ services:
   db:
     image: postgres:12.0-alpine
     volumes:
-      - posting_postgres_data:/var/lib/postgresql/posting_data/
+      - postgres_data:/var/lib/postgresql/posting_data/
     environment:
-      - POSTGRES_USER=db_user
-      - POSTGRES_PASSWORD=pass12345
-      - POSTGRES_DB=autoposting
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=top1Dron
+      - POSTGRES_DB=autopostingdb
   redis:
     image: "redis:alpine"
 
 volumes:
-  posting_postgres_data:
+  postgres_data:
