@@ -15,7 +15,7 @@ ip = config.get('bot_section', 'ip')
 
 user = config.get('db_section', 'POSTGRES_USER')
 password = config.get('db_section', 'POSTGRES_PASSWORD')
-db_name = config.get('db_section', 'POSTGRES_DB_NAME')
+db_name = config.get('db_section', 'POSTGRES_DB')
 host = config.get('db_section', 'POSTGRES_HOST')
 port = config.get('db_section', 'POSTGRES_PORT')
 db_url = f'postgres://{user}:{password}@{host}:{port}/{db_name}'
