@@ -2,6 +2,11 @@ from tortoise import Tortoise, fields, run_async
 from tortoise.models import Model
 
 
+class Group(Model):
+    id = fields.IntField(pk=True)
+    chat_id = fields.CharField(max_length=50, unique=True)
+
+
 class Chat(Model):
     id = fields.BigIntField(pk=True)
     title = fields.TextField(null=True)
@@ -17,7 +22,7 @@ class Chat(Model):
 
 class MessageQueue(Model):
     id = fields.IntField(pk=True)
-    chat = fields.ForeignKeyField('models.Chat', related_name='messages')
+    chat = fields.ForeignKeyField('models.Chat', related_name='messages', on_delete=fields.CASCADE)
     text = fields.TextField()
 
 

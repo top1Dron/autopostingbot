@@ -8,14 +8,13 @@ type_posting_callback = CallbackData("type", "type_name")
 admin_menu = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text='управление чатами'),
-            # KeyboardButton(text='статистика'),
+            KeyboardButton(text='Управление чатами'),
         ],
         [
             KeyboardButton(text='Статистика каналов/чатов'),
         ],
         [
-            KeyboardButton(text='закрыть меню'),
+            KeyboardButton(text='Закрыть меню'),
         ]
     ],
     resize_keyboard=True,
@@ -27,13 +26,12 @@ user_menu = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text='Добавить сообщение в очередь'),
-            # KeyboardButton(text='статистика'),
         ],
         [
             KeyboardButton(text='Настроить частоту постинга')
         ],
         [
-            KeyboardButton(text='закрыть меню'),
+            KeyboardButton(text='Закрыть меню'),
         ]
     ],
     resize_keyboard=True,
@@ -44,26 +42,21 @@ user_menu = ReplyKeyboardMarkup(
 chat_settings_menu = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text='Вывести список чатов', callback_data="show_chats"),
-        ],
-        [
             InlineKeyboardButton(text='Добавить чат/канал', callback_data="add_chat"),
             InlineKeyboardButton(text='Удалить чат/канал', callback_data="delete_chat"),
         ],
     ]
 )
 
-chat_settings_menu_level2 = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [
-            InlineKeyboardButton(text='Добавить чат/канал', callback_data="add_chat"),
-            InlineKeyboardButton(text='Удалить чат/канал', callback_data="delete_chat"),
-        ],
-        [
-            InlineKeyboardButton(text='Назад', callback_data='back'),
-        ],
-    ],
-)
+def create_back_menu(callback_data) -> InlineKeyboardMarkup:
+    chat_settings_menu_back = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text='Отмена', callback_data=callback_data),
+            ],
+        ]
+    )
+    return chat_settings_menu_back
 
 frequency_type_menu = InlineKeyboardMarkup(
     inline_keyboard=[
@@ -76,9 +69,12 @@ frequency_type_menu = InlineKeyboardMarkup(
                                  callback_data=type_posting_callback.new(type_name='by_day'))
         ],
         [
-          InlineKeyboardButton(text='Постинг каждый месяц в выбраный день',
+            InlineKeyboardButton(text='Постинг каждый месяц в выбраный день',
                                callback_data=type_posting_callback.new(type_name='by_date'))
-        ]
+        ],
+        [
+            InlineKeyboardButton(text='Отмена', callback_data='back_frequency_choose'),
+        ],
     ]
 )
 

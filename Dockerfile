@@ -1,6 +1,6 @@
 FROM python:3.9
 
-WORKDIR /usr/src/app
+WORKDIR /usr/projects/autopostingbot
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -19,11 +19,11 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN dos2unix /usr/src/app/entrypoint.sh
+RUN dos2unix /usr/projects/autopostingbot/entrypoint.sh
 
-RUN chmod +x /usr/src/app/entrypoint.sh
+RUN chmod +x /usr/projects/autopostingbot/entrypoint.sh
 
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+ENTRYPOINT ["/usr/projects/autopostingbot/entrypoint.sh"]
 
 
 
