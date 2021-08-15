@@ -40,6 +40,7 @@ async def add_chat(chat: types.Chat):
 async def delete_chat(chat: int):
     chats = await get_all_chats_links() 
     try:
+        await MessageQueue.filter(id=chat).delete()
         await Chat.filter(id=chat).delete()
         chats = await get_all_chats_links()
         return f"Чат удален! Все доступные чаты на текущий момент: {chats}"
@@ -85,9 +86,6 @@ async def push_message(chat: int):
             return
         await bot.send_message(chat.id, message.text)
         await MessageQueue.filter(id=message.id).delete()
-        return await send_to_admin(f"Бот сделал пост в {chat.title}")
-    else:
-        return await send_to_admin(f"Бот пытался сделать пост, но чат не был найден")
 
 
 async def send_to_admin(message: str):
@@ -108,7 +106,7 @@ async def get_frequency(call: CallbackQuery, type_frequency: str):
 async def get_chats_statistics():
     chats = await Chat.all()
     if await Chat.all().count() == 0:
-        return "Чаты отсуствуют"
+        return "Чаты отсутствуют"
     answer = 'Название чата - количество сообщений в ожидании - частота постинга\n'
     for chat in chats:
         posting = ''
