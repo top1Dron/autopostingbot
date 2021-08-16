@@ -40,7 +40,6 @@ async def add_chat(chat: types.Chat):
 async def delete_chat(chat: int):
     chats = await get_all_chats_links() 
     try:
-        await MessageQueue.filter(id=chat).delete()
         await Chat.filter(id=chat).delete()
         chats = await get_all_chats_links()
         return f"Чат удален! Все доступные чаты на текущий момент: {chats}"
@@ -85,7 +84,7 @@ async def push_message(chat: int):
         if message is None:
             return
         await bot.send_message(chat.id, message.text)
-        await MessageQueue.filter(id=message.id).delete()
+        return await MessageQueue.filter(id=message.id).delete()
 
 
 async def send_to_admin(message: str):

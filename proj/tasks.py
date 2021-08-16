@@ -7,8 +7,10 @@ from utils import send_to_admin, push_message
 
 
 async def push_message_without_db(chat: int, message):
-        await bot.send_message(chat, message)
-        return await send_to_admin(f"Бот сделал пост")
+        try:
+                return await bot.send_message(chat, message)
+        except:
+                return
 
 
 @app.task
