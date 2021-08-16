@@ -76,12 +76,15 @@ async def set_frequency_posting(chat_id: int, type_frequency: str, frequency: st
         await FrequencyPosting.create(chat_id=chat_id, type='by_day', day_of_week=int(frequency))
     if type_frequency == 'by_date':
         try:
-            if int(frequency) > 31 and int(frequency) < 1:
+            if 1 > int(frequency) > 31:
                 raise ValueError
             push_message_at_day.apply_async((chat_id, await get_first_message(chat_id)),
                                             eta=datetime.today().replace(day=int(frequency)))
             message = await MessageQueue.filter(chat_id=chat_id).first()
-            await message.delete()
+            try:
+                await message.delete()
+            except:
+                pass
             try:
                 await FrequencyPosting.filter(chat_id=chat_id).delete()
             except:
