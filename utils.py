@@ -121,7 +121,7 @@ async def get_chats_statistics():
                     3: 'среда', 4: 'четверг', 5: 'пятница',
                     6: 'суббота', 7: 'воскресенье',
                 }
-                posting = f'Каждый {days[int(frequency_object.day_of_week)]}'
+                posting = f'Каждый {days.get(int(frequency_object.day_of_week))}'
             elif posting_type == 'by_date':
                 posting = f'Каждый {frequency_object.day_of_month}-ый день месяца'
         except DoesNotExist:

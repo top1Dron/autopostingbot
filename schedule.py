@@ -53,7 +53,7 @@ async def set_frequency_posting(chat_id: int, type_frequency: str, frequency: st
         except ValueError:
             return "Введённое число должно быть больше 0!"
     if type_frequency == 'by_day':
-        if 7 < int(frequency) < 1:
+        if 7 < int(frequency) or int(frequency) < 1:
             return "Введенное число должно быть в диапазоне от 1 до 7!"
         frequency_dict = {
             '1': schedule.every().monday.do(push_message,
